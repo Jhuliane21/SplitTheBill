@@ -1,11 +1,10 @@
-package com.example.splitthebill.database
+package com.example.splitthebill.model.entity.dao
 
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import com.example.splitthebill.dao.PessoaDao
-import com.example.splitthebill.entity.Pessoa
+import com.example.splitthebill.model.entity.Pessoa
 
 class pessoaDaoSqlite(context: Context): PessoaDao {
     companion object Constant {
@@ -53,11 +52,21 @@ class pessoaDaoSqlite(context: Context): PessoaDao {
     ).toInt()
 
     override fun getPessoa(id: Int): Pessoa? {
-        TODO("Not yet implemented")
+        val cursor = pessoaSqliteDatabase.rawQuery(
+            "SELECT * FROM $PESSOA_TABLE WHERE $ID_COLUMN = ?",
+            arrayOf(id.toString())
+        )
+        val contact = if (cursor.moveToFirst()) {
+            cursor.rowToPessoa()
+        } else {
+            null
+        }
+        cursor.close()
+        return contact
     }
 
     override fun getPessoas(): MutableList<Pessoa> {
-        val contactList = mutableListOf<Pessoa>() //lista de contatos para ser populada e retornada
+        val pessoasList = mutableListOf<Pessoa>() //lista de contatos para ser populada e retornada
         //consulta de todos os contatos no banco:
         val cursor = pessoaSqliteDatabase.rawQuery(
             "SELECT * FROM $PESSOA_TABLE ORDER BY $NOME_COLUMN",
@@ -65,20 +74,23 @@ class pessoaDaoSqlite(context: Context): PessoaDao {
         )
         //objeto cursor devolve os dados(percorre a tabela) em forma de objeto - moveToNext() vai passando pelas linhas e
         while (cursor.moveToNext()) {
-            contactList.add(cursor.rowToPessoa()) //chama a função
+            pessoasList.add(cursor.rowToPessoa()) //chama a função
         }
 
-        return contactList
+        return pessoasList
 
     }
 
-    override fun updatePessoa(contact: Pessoa): Int {
-        TODO("Not yet implemented")
+    override fun updatePessoa(pessoa: Pessoa) = pessoaSqliteDatabase.update(
+        PESSOA_TABLE,
+        pessoa.toContentValues(),
+        "$ID_COLUMN = ?",
+        arrayOf(pessoa.id.toString())
+    )
+
+    override fun deletePessoa(pessoa: Pessoa) = pessoaSqliteDatabase.update(
+        PESSOA_TABLE,
+        pessoa.toContentValues(),
+        "$ID_COLUMN = ?",
+        arrayOf(pessoa.id.toString()))
     }
-
-    override fun deletePessoa(id: Int): Int {
-        TODO("Not yet implemented")
-    }
-
-
-}

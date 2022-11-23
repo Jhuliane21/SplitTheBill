@@ -10,6 +10,15 @@
         android:text="Adicionar Pessoas"
         android:id="@+id/btAdd"
       />
+    <EditText
+        android:id="@+id/totalEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Valor total da compra"
+        app:layout_constraintEnd_toEndOf="@+id/btAdd"
+        />
 <ListView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"

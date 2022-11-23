@@ -13,7 +13,12 @@
         android:textSize="25sp" />
 
     <TextView
-        android:id="@+id/valorEt"
+        android:id="@+id/valorTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Valor" />
+    <TextView
+        android:id="@+id/diferencaTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Valor" />

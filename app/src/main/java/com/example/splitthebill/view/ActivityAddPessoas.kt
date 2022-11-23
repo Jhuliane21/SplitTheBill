@@ -7,7 +7,7 @@ import android.view.View
 import com.example.splitthebill.Constants.EXTRA_CONTACT
 import com.example.splitthebill.Constants.VIEW_CONTACT
 import com.example.splitthebill.databinding.ActivityAddPessoasBinding
-import com.example.splitthebill.entity.Pessoa
+import com.example.splitthebill.model.entity.Pessoa
 
 class ActivityAddPessoas : AppCompatActivity() {
     private val aap: ActivityAddPessoasBinding by lazy {
@@ -33,13 +33,14 @@ class ActivityAddPessoas : AppCompatActivity() {
             aap.valorEt.isEnabled = false
             aap.comprasEt.isEnabled = false
 
-            aap.saveBt.visibility = View.GONE  //esconde o botão de salvar por n precisar dele aqui
+            aap.saveBt.visibility = View.GONE
         }
         aap.voltarBt.setOnClickListener()
         {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+
         aap.saveBt.setOnClickListener {
             val contact = Pessoa(
                 id = pessoaRecebida?.id,

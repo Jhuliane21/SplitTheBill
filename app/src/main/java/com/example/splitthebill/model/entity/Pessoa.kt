@@ -1,4 +1,4 @@
-package com.example.splitthebill.entity
+package com.example.splitthebill.model.entity
 
 import android.os.Parcelable
 import androidx.annotation.NonNull
@@ -11,11 +11,8 @@ import kotlinx.parcelize.Parcelize
     data class Pessoa(
     @PrimaryKey(autoGenerate = true)
     var id: Int?,
-    @NonNull
     var nome: String,
-    @NonNull
     var valor: String,
-    @NonNull
     var compra: String,
     ): Parcelable
 

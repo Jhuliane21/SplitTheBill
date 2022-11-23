@@ -1,8 +1,8 @@
 package com.example.splitthebill.controller
 
-import com.example.splitthebill.dao.PessoaDao
-import com.example.splitthebill.database.pessoaDaoSqlite
-import com.example.splitthebill.entity.Pessoa
+import com.example.splitthebill.model.entity.dao.PessoaDao
+import com.example.splitthebill.model.entity.dao.pessoaDaoSqlite
+import com.example.splitthebill.model.entity.Pessoa
 import com.example.splitthebill.view.MainActivity
 
 class pessoaController (private val mainActivity: MainActivity) {
@@ -10,7 +10,9 @@ class pessoaController (private val mainActivity: MainActivity) {
 
         fun insertPessoa(pessoa: Pessoa) = pessoaDaoImpl.createPessoa(pessoa)
 
-        fun getContacts(){
+        fun getPessoa(id:Int) = pessoaDaoImpl.getPessoa(id)
+
+        fun getPessoas(){
             Thread{
 
                 val returnedList = pessoaDaoImpl.getPessoas()
@@ -20,5 +22,5 @@ class pessoaController (private val mainActivity: MainActivity) {
 
         fun editPessoa(pessoa: Pessoa) = pessoaDaoImpl.updatePessoa(pessoa)
 
-        fun removePessoa(id: Int) = pessoaDaoImpl.deletePessoa(id)
+        fun deletePessoa(pessoa: Pessoa) = pessoaDaoImpl.deletePessoa(pessoa)
 }
