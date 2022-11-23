@@ -7,8 +7,8 @@ import android.widget.AdapterView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import com.example.splitthebill.Constants.EXTRA_CONTACT
-import com.example.splitthebill.Constants.VIEW_CONTACT
+import com.example.splitthebill.Constants.EXTRA_PESSOA
+import com.example.splitthebill.Constants.VIEW_PESSOA
 import com.example.splitthebill.controller.pessoaController
 import com.example.splitthebill.databinding.ActivityMainBinding
 import com.example.splitthebill.model.entity.Pessoa
@@ -29,9 +29,9 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-    public val total = amb.totalEt.text.toString();
-    public var quantidadePessoas = 0;
-    public fun getTotalPessoa() : Double {
+     val total = amb.totalEt.text.toString();
+     var quantidadePessoas = 0;
+     fun getTotalPessoa() : Double {
         return total.toDouble()/quantidadePessoas;
     }
 
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
             ActivityResultContracts.StartActivityForResult(),
         ) { result ->
             if (result.resultCode == RESULT_OK) {
-                val pessoa = result.data?.getParcelableExtra<Pessoa>(EXTRA_CONTACT)
+                val pessoa = result.data?.getParcelableExtra<Pessoa>(EXTRA_PESSOA)
                 pessoa?.let { _pessoa ->
 
                     if (pessoaList.any { it.id == _pessoa.id }) {
@@ -53,14 +53,14 @@ class MainActivity : AppCompatActivity() {
                         pessoaList[position] = _pessoa
 
                     } else {
-                        //inserir novo contato no banco
-                        val newId = pessoaController.insertPessoa(_pessoa)
-                        //inserir novo contato no fim da lista
+
+                        pessoaController.insertPessoa(_pessoa)
+
                         pessoaList.add(_pessoa)
 
                     }
-                    pessoaList.sortBy { it.nome } //ordenar contatos por nome
-                    pessoaAdapter.notifyDataSetChanged() //avisa pro adapter que houveram mudanças no data source
+                    pessoaList.sortBy { it.nome }
+                    pessoaAdapter.notifyDataSetChanged()
                 }
             }
             amb.btAdd.setOnClickListener()
@@ -79,8 +79,8 @@ class MainActivity : AppCompatActivity() {
                 val pessoa = pessoaList[position]
 
                 val pessoaIntent = Intent(this@MainActivity, ActivityAddPessoas::class.java)
-                pessoaIntent.putExtra(EXTRA_CONTACT, pessoa)
-                pessoaIntent.putExtra(VIEW_CONTACT, true)
+                pessoaIntent.putExtra(EXTRA_PESSOA, pessoa)
+                pessoaIntent.putExtra(VIEW_PESSOA, true)
                 startActivity(pessoaIntent)
             }
         }
