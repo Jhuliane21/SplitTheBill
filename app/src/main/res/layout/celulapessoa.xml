@@ -9,18 +9,26 @@
         android:id="@+id/nomeTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nome"
+        android:text="@string/nome"
         android:textSize="25sp" />
 
     <TextView
         android:id="@+id/valorTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Valor" />
+        android:text="@string/valor" />
+
+    <TextView
+        android:id="@+id/valorReceberTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/valorReceber" />
     <TextView
         android:id="@+id/diferencaTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Valor" />
+        android:text="@string/diferencaTv" />
+
+
 
 </LinearLayout>

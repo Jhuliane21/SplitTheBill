@@ -1,30 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    tools:context=".view.MainActivity">
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Adicionar Pessoas"
-        android:id="@+id/btAdd"
-      />
-    <EditText
-        android:id="@+id/totalEt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Valor total da compra"
-        app:layout_constraintEnd_toEndOf="@+id/btAdd"
-        />
 <ListView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/pessoasLv"/>
-</LinearLayout>
+    android:id="@+id/pessoasLv"
+    tools:context=".view.MainActivity">
+    <EditText
+        android:id="@+id/totalEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Valor total"/>
+</ListView>

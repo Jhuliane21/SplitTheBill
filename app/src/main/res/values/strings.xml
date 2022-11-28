@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">SplitTheBill</string>
+    <string name="nome" />
+    <string name="valor" />
+    <string name="valorReceber" />
+    <string name="diferencaTv" />
+    <string name="close" />
+    <string name="remove" />
+    <string name="edit" />
 </resources>

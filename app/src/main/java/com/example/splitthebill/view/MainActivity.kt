@@ -2,17 +2,17 @@ package com.example.splitthebill.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
+import android.view.Menu
 import android.widget.AdapterView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import com.example.splitthebill.Constants.EXTRA_PESSOA
-import com.example.splitthebill.Constants.VIEW_PESSOA
-import com.example.splitthebill.controller.pessoaController
+import com.example.splitthebill.R
+import com.example.splitthebill.model.Constants.EXTRA_PESSOA
+import com.example.splitthebill.model.Constants.VIEW_PESSOA
 import com.example.splitthebill.databinding.ActivityMainBinding
-import com.example.splitthebill.model.entity.Pessoa
-import com.example.splitthebill.view.adapter.pessoaAdapter
+import com.example.splitthebill.model.Pessoa
+import com.example.splitthebill.adapter.pessoaAdapter
 
 class MainActivity : AppCompatActivity() {
     private val pessoaList: MutableList<Pessoa> = mutableListOf();
@@ -20,10 +20,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var carl: ActivityResultLauncher<Intent>
 
-
-    private val pessoaController: pessoaController by lazy {
-        pessoaController(this)
-    }
 
     private val amb: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
@@ -38,60 +34,51 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(amb.root)
+
         pessoaAdapter = pessoaAdapter(this, pessoaList)
         amb.pessoasLv.adapter = pessoaAdapter
         quantidadePessoas = pessoaList.size
+
         carl = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult(),
         ) { result ->
             if (result.resultCode == RESULT_OK) {
-                val pessoa = result.data?.getParcelableExtra<Pessoa>(EXTRA_PESSOA)
-                pessoa?.let { _pessoa ->
+                val person = result.data?.getParcelableExtra<Pessoa>(EXTRA_PESSOA)
+                person?.let { _person->
 
-                    if (pessoaList.any { it.id == _pessoa.id }) {
-                        val position = pessoaList.indexOfFirst { it.id == _pessoa.id }
-                        pessoaList[position] = _pessoa
-
-                    } else {
-
-                        pessoaController.insertPessoa(_pessoa)
-
-                        pessoaList.add(_pessoa)
+                    if(pessoaList.any { it.id == _person.id }){
+                        val posicao = pessoaList.indexOfFirst { it.id == _person.id }
+                        pessoaList[posicao] = _person
 
                     }
-                    pessoaList.sortBy { it.nome }
+                    else {
+                        pessoaList.add(_person)
+                    }
                     pessoaAdapter.notifyDataSetChanged()
                 }
             }
-            amb.btAdd.setOnClickListener()
-            {
-                val intent = Intent(this, ActivityAddPessoas::class.java)
-                startActivity(intent)
-            }
         }
-        amb.pessoasLv.onItemClickListener = object: AdapterView.OnItemClickListener{
-            override fun onItemClick(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                val pessoa = pessoaList[position]
+        registerForContextMenu(amb.pessoasLv)
 
-                val pessoaIntent = Intent(this@MainActivity, ActivityAddPessoas::class.java)
-                pessoaIntent.putExtra(EXTRA_PESSOA, pessoa)
-                pessoaIntent.putExtra(VIEW_PESSOA, true)
-                startActivity(pessoaIntent)
+        amb.pessoasLv.onItemClickListener =
+            AdapterView.OnItemClickListener { _, _, position, _ ->
+                val person = pessoaList[position]
+                startActivity(
+                    Intent(
+                        this@MainActivity, ActivityAddPessoas::class.java
+                    ).putExtra(
+                        EXTRA_PESSOA, person
+                    ).putExtra(
+                        VIEW_PESSOA, true)
+                )
             }
-        }
-
-        pessoaController.getPessoas();
 
     }
-    fun updateListaPessoas(_contactList: MutableList<Pessoa>) {
-        pessoaList.clear()
-        pessoaList.addAll(_contactList)
-        pessoaAdapter.notifyDataSetChanged()
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.context_menu, menu)
+        return true
     }
+
+
 
 }

@@ -1,4 +1,4 @@
-package com.example.splitthebill.view.adapter
+package com.example.splitthebill.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.example.splitthebill.R
-import com.example.splitthebill.model.entity.Pessoa
+import com.example.splitthebill.model.Pessoa
 import com.example.splitthebill.view.MainActivity
 
 public class pessoaAdapter(
@@ -25,7 +25,7 @@ public class pessoaAdapter(
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val total = amb.getTotalPessoa();
-        val contact = pessoaList[position]
+        val pessoa = pessoaList[position]
         var pessoaTileView = convertView
         if (pessoaTileView == null) {
 
@@ -45,8 +45,8 @@ public class pessoaAdapter(
         }
 
         with(pessoaTileView?.tag as TileContactHolder) {
-            nomeTv.text = contact.nome
-            valorTv.text = contact.valor
+            nomeTv.text = pessoa.nome
+            valorTv.text = pessoa.valorPagar.toString()
             diferencaTv.text = total.toString()
         }
 

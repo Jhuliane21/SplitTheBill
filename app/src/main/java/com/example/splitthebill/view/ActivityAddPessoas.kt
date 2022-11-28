@@ -3,11 +3,15 @@ package com.example.splitthebill.view
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
-import com.example.splitthebill.Constants.EXTRA_PESSOA
-import com.example.splitthebill.Constants.VIEW_PESSOA
+import com.example.splitthebill.R
+import com.example.splitthebill.model.Constants.EXTRA_PESSOA
+import com.example.splitthebill.model.Constants.VIEW_PESSOA
 import com.example.splitthebill.databinding.ActivityAddPessoasBinding
-import com.example.splitthebill.model.entity.Pessoa
+import com.example.splitthebill.model.Pessoa
+import kotlin.random.Random
 
 class ActivityAddPessoas : AppCompatActivity() {
     private val aap: ActivityAddPessoasBinding by lazy {
@@ -17,18 +21,24 @@ class ActivityAddPessoas : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(aap.root)
 
+        if (intent.getBooleanExtra("VIEW_PESSOA", false)) {
+            aap.nomeEt.isEnabled = false
+            aap.valorEt.isEnabled = false
+            aap.comprasEt.isEnabled = false
+            aap.saveBt.visibility = View.GONE
+        }
         val pessoaRecebida = intent.getParcelableExtra<Pessoa>(EXTRA_PESSOA)
 
-        pessoaRecebida?.let {_pessoaRecebida ->
-            with(aap){
+        pessoaRecebida?.let { _pessoaRecebida ->
+            with(aap) {
                 nomeEt.setText(_pessoaRecebida.nome)
-                valorEt.setText(_pessoaRecebida.valor)
-                comprasEt.setText(_pessoaRecebida.compra)
+                valorEt.setText(_pessoaRecebida.valorPagar.toString())
+                comprasEt.setText(_pessoaRecebida.compras)
             }
 
         }
         val viewPessoa = intent.getBooleanExtra(VIEW_PESSOA, false)
-        if(viewPessoa){
+        if (viewPessoa) {
             aap.nomeEt.isEnabled = false
             aap.valorEt.isEnabled = false
             aap.comprasEt.isEnabled = false
@@ -42,16 +52,41 @@ class ActivityAddPessoas : AppCompatActivity() {
         }
 
         aap.saveBt.setOnClickListener {
-            val pessoa = Pessoa(
-                id = pessoaRecebida?.id,
-                nome = aap.nomeEt.text.toString(),
-                valor = aap.valorEt.text.toString(),
-                compra = aap.comprasEt.text.toString(),
-            )
-            val resultIntent = Intent()
-            resultIntent.putExtra(EXTRA_PESSOA, pessoa)
-            setResult(RESULT_OK, resultIntent)
-            finish()
+            if (
+                aap.nomeEt.text.isNotEmpty() &&
+                aap.valorEt.text.isNotEmpty()
+            ) {
+                val person = Pessoa(
+                    id = pessoaRecebida?.id ?: Random(System.currentTimeMillis()).nextInt(),
+                    nome = aap.nomeEt.text.toString(),
+                    valorPagar = aap.valorEt.text.toString().toDouble(),
+                    diferenca = aap.diferencaEt.text.toString().toDouble(),
+                    compras = aap.comprasEt.text.toString(),
+
+                    )
+                setResult(
+                    RESULT_OK,
+                    Intent().putExtra(
+                        EXTRA_PESSOA,
+                        person
+                    )
+                )
+                finish()
+            }
         }
+    }
+        override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+            menuInflater.inflate(R.menu.menu_secondary, menu)
+            return true
+        }
+
+        override fun onOptionsItemSelected(item: MenuItem): Boolean {
+            return when(item.itemId) {
+                R.id.closeMi -> {
+                    finish()
+                    true
+                }
+                else -> { false }
+            }
     }
 }

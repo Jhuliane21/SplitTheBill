@@ -1,4 +1,4 @@
-package com.example.splitthebill
+package com.example.splitthebill.model
 
 object Constants {
     const val EXTRA_PESSOA = "EXTRA_PESSOA"
