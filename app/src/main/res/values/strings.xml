@@ -7,4 +7,10 @@
     <string name="close" />
     <string name="remove" />
     <string name="edit" />
+    <string name="adicionar" />
+    <string name="Salvar" />
+    <string name="Remover" />
+    <string name="Editar" />
+    <string name="dividir" />
+    <string name="valorDiferenca" />
 </resources>

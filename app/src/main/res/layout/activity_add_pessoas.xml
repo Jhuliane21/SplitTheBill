@@ -39,16 +39,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/valorEt" />
+
     <EditText
-        android:id="@+id/diferencaEt"
+        android:id="@+id/valorTotalEt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="text"
-        android:hint="Compras"
+        android:hint="Valor Total"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/diferencaEt" />
+        app:layout_constraintTop_toBottomOf="@+id/comprasEt" />
+
     <Button
         android:id="@+id/saveBt"
         android:layout_width="0dp"
@@ -56,13 +58,7 @@
         android:text="Salvar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/comprasEt" />
-    <Button
-        android:id="@+id/voltarBt"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Voltar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/comprasEt" />
+        app:layout_constraintTop_toBottomOf="@+id/valorTotalEt" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

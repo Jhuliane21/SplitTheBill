@@ -13,26 +13,14 @@
         android:theme="@style/Theme.SplitTheBill"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".view.DividirActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity
-            android:name=".PessoaActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".view.ActivityResultContracts"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+
+
         <activity
             android:name=".view.ActivityAddPessoas"
             android:exported="false">

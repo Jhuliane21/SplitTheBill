@@ -1,11 +1,13 @@
 package com.example.splitthebill.view
 
+import android.content.Entity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.result.ActivityResultLauncher
 import com.example.splitthebill.R
 import com.example.splitthebill.model.Constants.EXTRA_PESSOA
 import com.example.splitthebill.model.Constants.VIEW_PESSOA
@@ -17,6 +19,8 @@ class ActivityAddPessoas : AppCompatActivity() {
     private val aap: ActivityAddPessoasBinding by lazy {
         ActivityAddPessoasBinding.inflate(layoutInflater)
     }
+    private lateinit var amb: MainActivity<Intent>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(aap.root)
@@ -45,11 +49,7 @@ class ActivityAddPessoas : AppCompatActivity() {
 
             aap.saveBt.visibility = View.GONE
         }
-        aap.voltarBt.setOnClickListener()
-        {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
+
 
         aap.saveBt.setOnClickListener {
             if (
@@ -60,9 +60,8 @@ class ActivityAddPessoas : AppCompatActivity() {
                     id = pessoaRecebida?.id ?: Random(System.currentTimeMillis()).nextInt(),
                     nome = aap.nomeEt.text.toString(),
                     valorPagar = aap.valorEt.text.toString().toDouble(),
-                    diferenca = aap.diferencaEt.text.toString().toDouble(),
+                    valorTotal = aap.valorTotalEt.text.toString().toDouble(),
                     compras = aap.comprasEt.text.toString(),
-
                     )
                 setResult(
                     RESULT_OK,

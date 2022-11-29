@@ -19,16 +19,9 @@
         android:text="@string/valor" />
 
     <TextView
-        android:id="@+id/valorReceberTv"
+        android:id="@+id/valorDiferenca"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/valorReceber" />
-    <TextView
-        android:id="@+id/diferencaTv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/diferencaTv" />
-
-
+        android:text="@string/valorDiferenca" />
 
 </LinearLayout>

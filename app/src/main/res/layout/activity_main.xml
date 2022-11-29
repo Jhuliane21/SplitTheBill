@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ListView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:icon="@drawable/ic_add_background"
     android:layout_height="match_parent"
     android:id="@+id/pessoasLv"
-    tools:context=".view.MainActivity">
-    <EditText
-        android:id="@+id/totalEt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Valor total"/>
+    tools:context=".view.MainActivity" >
+
 </ListView>
